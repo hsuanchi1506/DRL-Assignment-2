@@ -60,7 +60,7 @@ def init_model(score):
     if approximator is None:
         output = "weights_bak.npy"
         if not os.path.exists(output):
-            file_id = "1rzg5AC8gSyj4QQUgWUkc5nDghxcLc4K"
+            file_id = "1Fe6jSso5E0WpwJG0BjWetKPz2R8NhG9o"
             url = f"https://drive.google.com/uc?id={file_id}"
             import gdown
             gdown.download(url, output, quiet=False)
