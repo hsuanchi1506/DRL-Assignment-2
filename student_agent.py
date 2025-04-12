@@ -57,10 +57,13 @@ def init_model(score):
     global approximator, td_mcts, cur_score, mem
 
     if approximator is None:
-        file_id = "1yQW7MoqiYdpK7uBwnMBSXySVRfpCeUkc"
         output = "weights_bak.npy"
-        url = f"https://drive.google.com/uc?id={file_id}"
-        gdown.download(url, output, quiet=False)
+        if not os.path.exists(output):
+            file_id = "1rzg5AC8gSyj4QQUgWUkc5nDghxcLc4K-"
+            url = f"https://drive.google.com/uc?id={file_id}"
+            import gdown
+            gdown.download(url, output, quiet=False)
+
         approximator = NTupleApproximator(board_size=4, patterns=patterns)
 
         weights_array = np.load("weights_bak.npy", allow_pickle=True)
@@ -97,6 +100,10 @@ def get_action(env, score):
 
     if score > 40000:
         for i in range(500):
+            td_mcts.run_simulation(root)
+            best_action, distribution = td_mcts.best_action_distribution(root)
+    elif score > 30000:
+        for i in range(250):
             td_mcts.run_simulation(root)
             best_action, distribution = td_mcts.best_action_distribution(root)
     else:
