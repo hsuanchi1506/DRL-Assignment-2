@@ -96,7 +96,7 @@ def get_action(env, score):
     root = TD_MCTS_Node(state, score)
 
     if score < 20000:
-        for i in range(50):
+        for i in range(25):
             td_mcts.run_simulation(root)
             best_action, distribution = td_mcts.best_action_distribution(root)
     elif score < 40000:
