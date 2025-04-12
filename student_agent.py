@@ -57,10 +57,10 @@ def init_model(score):
     global approximator, td_mcts, cur_score, mem
 
     if approximator is None:
-        file_id = "1yQW7MoqiYdpK7uBwnMBSXySVRfpCeUkc"
-        output = "weights_bak.npy"
-        url = f"https://drive.google.com/uc?id={file_id}"
-        gdown.download(url, output, quiet=False)
+        # file_id = "1yQW7MoqiYdpK7uBwnMBSXySVRfpCeUkc"
+        # output = "weights_bak.npy"
+        # url = f"https://drive.google.com/uc?id={file_id}"
+        # gdown.download(url, output, quiet=False)
         approximator = NTupleApproximator(board_size=4, patterns=patterns)
 
         weights_array = np.load("weights_bak.npy", allow_pickle=True)
@@ -95,11 +95,20 @@ def get_action(env, score):
     state = env
     root = TD_MCTS_Node(state, score)
 
-    for i in range(td_mcts.iterations):
-        td_mcts.run_simulation(root)
-        best_action, distribution = td_mcts.best_action_distribution(root)
-        # if i > 100 and distribution[best_action] > 0.8:
-        #     break
+    if score < 20000:
+        for i in range(50):
+            td_mcts.run_simulation(root)
+            best_action, distribution = td_mcts.best_action_distribution(root)
+    elif score < 40000:
+        for i in range(td_mcts.iterations):
+            td_mcts.run_simulation(root)
+            best_action, distribution = td_mcts.best_action_distribution(root)
+    else:
+        for i in range(400):
+            td_mcts.run_simulation(root)
+            best_action, distribution = td_mcts.best_action_distribution(root)
+            # if i > 100 and distribution[best_action] > 0.8:
+            #     break
     
     mem = score
     best_action, _ = td_mcts.best_action_distribution(root)
