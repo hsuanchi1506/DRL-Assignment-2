@@ -15,6 +15,7 @@ import json
 
 from utils import TD_MCTS, TD_MCTS_Node, NTupleApproximator
 from env2048 import Game2048Env
+import os
 # import gc
 
 
