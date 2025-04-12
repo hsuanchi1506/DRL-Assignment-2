@@ -135,7 +135,7 @@ class TD_MCTS_Node:
             return float('inf')
 
         average_value = self.total_value / self.visits
-        normalized_value = average_value / 25000
+        normalized_value = average_value / 15000
         exploration_term = self.c * math.sqrt(math.log(parent_visits) / self.visits)
 
         # print("Value1: ", normalized_value)

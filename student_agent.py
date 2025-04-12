@@ -91,7 +91,7 @@ def get_action(env, score):
         print("=" * 30) 
         print(f"Score {cur_score} reached")
         print(env)
-        print("=" * 30) 
+        print("=" * 30, flush=True) 
     elif score < cur_score:
         print("Reset")
         cur_score = 0
