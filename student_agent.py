@@ -57,10 +57,10 @@ def init_model(score):
     global approximator, td_mcts, cur_score, mem
 
     if approximator is None:
-        # file_id = "1yQW7MoqiYdpK7uBwnMBSXySVRfpCeUkc"
-        # output = "weights_bak.npy"
-        # url = f"https://drive.google.com/uc?id={file_id}"
-        # gdown.download(url, output, quiet=False)
+        file_id = "1yQW7MoqiYdpK7uBwnMBSXySVRfpCeUkc"
+        output = "weights_bak.npy"
+        url = f"https://drive.google.com/uc?id={file_id}"
+        gdown.download(url, output, quiet=False)
         approximator = NTupleApproximator(board_size=4, patterns=patterns)
 
         weights_array = np.load("weights_bak.npy", allow_pickle=True)
