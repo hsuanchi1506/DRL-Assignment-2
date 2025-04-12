@@ -124,7 +124,7 @@ def get_action(env, score):
     elif score > 30000:
         for i in range(500):
             td_mcts.run_simulation(root)
-            best_action, distribution = td_mcts.best_action_distribution(root)k
+            best_action, distribution = td_mcts.best_action_distribution(root)
     else:
         for i in range(100):
             td_mcts.run_simulation(root)
