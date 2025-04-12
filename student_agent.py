@@ -99,23 +99,43 @@ def get_action(env, score):
     state = env
     root = TD_MCTS_Node(state, score)
 
-    if score < 20000:
-        td_mcts = TD_MCTS(Game2048Env(), approximator, iterations=20, exploration_constant=1.41, rollout_depth=0, gamma=1.0)
-        for i in range(50):
+    # if score < 20000:
+    #     td_mcts = TD_MCTS(Game2048Env(), approximator, iterations=20, exploration_constant=1.41, rollout_depth=0, gamma=1.0)
+    #     for i in range(50):
+    #         td_mcts.run_simulation(root)
+    #         best_action, distribution = td_mcts.best_action_distribution(root)
+    # elif score < 40000:
+    #     td_mcts = TD_MCTS(Game2048Env(), approximator, iterations=100, exploration_constant=1.41, rollout_depth=0, gamma=1.0)
+    #     for i in range(100):
+    #         td_mcts.run_simulation(root)
+    #         best_action, distribution = td_mcts.best_action_distribution(root)
+    # else:
+    #     td_mcts = TD_MCTS(Game2048Env(), approximator, iterations=500, exploration_constant=1.41, rollout_depth=0, gamma=1.0)
+    #     for i in range(500):
+    #         td_mcts.run_simulation(root)
+    #         best_action, distribution = td_mcts.best_action_distribution(root)
+    #         # if i > 100 and distribution[best_action] > 0.8:
+    #         #     break
+
+    if score > 50000:
+        for i in range(1000):
             td_mcts.run_simulation(root)
             best_action, distribution = td_mcts.best_action_distribution(root)
-    elif score < 40000:
-        td_mcts = TD_MCTS(Game2048Env(), approximator, iterations=100, exploration_constant=1.41, rollout_depth=0, gamma=1.0)
-        for i in range(100):
-            td_mcts.run_simulation(root)
-            best_action, distribution = td_mcts.best_action_distribution(root)
-    else:
-        td_mcts = TD_MCTS(Game2048Env(), approximator, iterations=500, exploration_constant=1.41, rollout_depth=0, gamma=1.0)
+    elif score > 30000:
         for i in range(500):
+            td_mcts.run_simulation(root)
+            best_action, distribution = td_mcts.best_action_distribution(root)
+    elif score > 15000:
+        for i in range(td_mcts.iterations):
             td_mcts.run_simulation(root)
             best_action, distribution = td_mcts.best_action_distribution(root)
             # if i > 100 and distribution[best_action] > 0.8:
             #     break
+    else:
+        for i in range(30):
+            td_mcts.run_simulation(root)
+            best_action, distribution = td_mcts.best_action_distribution(root)
+    
     
     mem = score
     best_action, _ = td_mcts.best_action_distribution(root)
